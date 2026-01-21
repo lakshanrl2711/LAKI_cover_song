@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAKI COVER SONG - Music Download & Streaming</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Animated Top Bar -->
+    <div class="top-bar">
+        <div class="progress-bar"></div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="particles"></div>
+        <div class="waves"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <h1 class="site-title neon-text">LAKI COVER SONG</h1>
+            <p class="welcome-message animate-text">Welcome to my music collection! Discover and download amazing cover songs.</p>
+            <div class="contact-info">
+                <i class="fas fa-envelope"></i>
+                <span>laki.covers@email.com</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#songs" class="neon-link">Songs</a></li>
+                <li><a href="#request" class="neon-link">Request Song</a></li>
+                <li><a href="#location" class="neon-link">Location</a></li>
+                <li><a href="#gallery" class="neon-link">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Songs Section -->
+    <section id="songs" class="songs-section">
+        <div class="container">
+            <h2 class="section-title neon-text">My Songs Collection</h2>
+            
+            <!-- Admin Controls -->
+            <div class="admin-controls">
+                <button class="neon-btn" onclick="showAddSongForm()">
+                    <i class="fas fa-plus"></i> Add New Song
+                </button>
+                <button class="neon-btn" onclick="toggleDeleteMode()">
+                    <i class="fas fa-trash"></i> Delete Songs
+                </button>
+            </div>
+
+            <!-- Add Song Form -->
+            <div id="addSongForm" class="add-song-form" style="display: none;">
+                <h3>Add New Song</h3>
+                <input type="text" id="newSongTitle" placeholder="Song Title" required>
+                <input type="text" id="newSongArtist" placeholder="Artist Name">
+                <input type="file" id="newSongFile" accept="audio/*" required>
+                <input type="file" id="newDocumentFile" accept="application/pdf,.doc,.docx">
+                <button onclick="addNewSong()" class="neon-btn">Add Song</button>
+                <button onclick="hideAddSongForm()" class="neon-btn secondary">Cancel</button>
+            </div>
+
+            <!-- Songs Grid -->
+            <div class="songs-grid" id="songsGrid">
+                <!-- Songs will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Song Request Section -->
+    <section id="request" class="request-section">
+        <div class="container">
+            <h2 class="section-title neon-text">Request a Song</h2>
+            <form class="request-form" onsubmit="sendSongRequest(event)">
+                <input type="text" id="requestSongName" placeholder="Song Name" required>
+                <textarea id="requestDescription" placeholder="Your message or description..." required></textarea>
+                <button type="submit" class="neon-btn">
+                    <i class="fab fa-whatsapp"></i> Send Request via WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="location-section">
+        <div class="container">
+            <h2 class="section-title neon-text">Find Me Here</h2>
+            <div class="location-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Jakarta, Indonesia</span>
+            </div>
+            <div class="map-placeholder">
+                <div class="map-icon">
+                    <i class="fas fa-map"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title neon-text">Image Gallery</h2>
+            <div class="image-grid">
+                <div class="image-item">
+                    <img src="WhatsApp Image 2025-08-31 at 16.00.06_f09d76a2.jpg" alt="Music Studio">
+                </div>
+                <div class="image-item">
+                    <img src="https://via.placeholder.com/300x200/ff00ff/ffffff?text=Live+Performance" alt="Live Performance">
+                </div>
+                <div class="image-item">
+                    <img src="https://via.placeholder.com/300x200/00ff00/000000?text=Cover+Art" alt="Cover Art">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-section">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@lakshan.lakshan.37?_r=1&_t=ZS-93FPJLlLsLn" target="_blank" class="social-icon neon-social">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://facebook.com/laki.covers" target="_blank" class="social-icon neon-social">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://wa.me/94767546714" target="_blank" class="social-icon neon-social">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 LAKI COVER SONG. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Audio Player Template -->
+    <template id="songCardTemplate">
+        <div class="song-card">
+            <div class="song-info">
+                <h3 class="song-title"></h3>
+                <p class="song-artist"></p>
+            </div>
+            <div class="song-controls">
+                <audio class="song-audio"></audio>
+                <button class="play-btn neon-btn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <select class="speed-control">
+                    <option value="0.5">0.5x</option>
+                    <option value="1" selected>1x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="2">2x</option>
+                </select>
+            </div>
+            <div class="download-controls">
+                <button class="download-mp3 neon-btn">
+                    <i class="fas fa-download"></i> MP3
+                </button>
+                <button class="download-doc neon-btn">
+                    <i class="fas fa-file"></i> DOCUMENT
+                </button>
+            </div>
+            <button class="delete-btn" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
